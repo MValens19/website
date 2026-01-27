@@ -91,7 +91,18 @@ $resultado = $conn->query($sql);
 
                     <div class="bg-cardbg rounded-xl overflow-hidden border border-gray-700 hover:border-gray-500 transition group relative">
                         <div class="h-40 overflow-hidden relative">
-                            <img src="<?php echo $row['imagen_url']; ?>" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
+                            <?php
+                            // Lógica para detectar si la imagen es local o externa
+                            $img_src = $row['imagen_url'];
+                            // Si no empieza con http, le agregamos ../ para subir un nivel de carpeta
+                            if (strpos($img_src, 'http') !== 0) {
+                                $img_src = "../" . $img_src;
+                            }
+                            ?>
+                            <img src="<?php echo $img_src; ?>"
+                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition"
+                                onerror="this.src='https://via.placeholder.com/400x300?text=Error+al+cargar'">
+
                             <span class="absolute top-2 right-2 bg-black/70 text-primary text-xs font-bold px-2 py-1 rounded border border-gray-600">
                                 <?php echo $row['categoria']; ?>
                             </span>

@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label class="block text-sm font-medium text-gray-400 mb-2">Categoría</label>
                             <select name="categoria" class="w-full bg-darkbg border border-gray-600 rounded-xl p-4 focus:border-primary outline-none transition cursor-pointer">
                                 <?php
-                                $cats = ["Secuencias", "Drums", "Vocales", "Synth", "FX / Plugins", "Cursos"];
+                                $cats = ["Secuencias", "Drums", "Pianos","Brass", "Synth", "FX / Plugins", "Cursos"];
                                 foreach ($cats as $cat) {
                                     $selected = ($p['categoria'] == $cat) ? "selected" : "";
                                     echo "<option value='$cat' $selected>$cat</option>";

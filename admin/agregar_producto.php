@@ -117,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <option value="Drums">Drums</option>
                 <option value="Pianos">Pianos</option>
                 <option value="Synth">Synth / Presets</option>
+                <option value="Brass">Brass</option>
                 <option value="FX / Plugins">FX (Efectos) / Plugins</option>
                 <option value="Cursos">Cursos</option>
             </select>

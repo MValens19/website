@@ -11,6 +11,10 @@ include 'conexion.php';
     <title>SonicMarket - Recursos Musicales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -30,6 +34,35 @@ include 'conexion.php';
             background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070');
             background-size: cover;
             background-position: center;
+        }
+
+        .audiowide-regular {
+            font-family: "Audiowide", sans-serif;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        #KONTAKT {
+            font-family: "Audiowide", sans-serif;
+        }
+
+        .lexend-exa-regular {
+            font-family: "Lexend Exa", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        #categorias {
+            font-family: "Lexend Exa", sans-serif;
+            font-weight: 200;
+            font-style: normal;
+        }
+
+        #searchInput {
+            font-family: "Lexend Exa", sans-serif;
+            font-weight: 200;
+            font-style: normal;
         }
     </style>
 </head>
@@ -88,22 +121,42 @@ include 'conexion.php';
         </div>
 
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-            <button onclick="filtrarTag('')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:bg-white hover:text-black transition font-medium group">
+            <button id="categorias" onclick="filtrarTag('')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:bg-white hover:text-black transition font-medium group">
                 <i data-lucide="layout-grid" class="w-5 h-5"></i> Ver todo
             </button>
-            <button onclick="filtrarTag('Secuencias')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+            <button id="categorias" onclick="filtrarTag('Secuencias')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="audio-waveform" class="w-5 h-5 group-hover:text-primary"></i> Secuencias
             </button>
-            <button onclick="filtrarTag('Drums')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+            <button id="categorias" onclick="filtrarTag('Drums')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="drum" class="w-5 h-5 group-hover:text-primary"></i> Drums
             </button>
-            <button onclick="filtrarTag('Pianos')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+            <button id="categorias" onclick="filtrarTag('Pianos')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="piano" class="w-5 h-5 group-hover:text-primary"></i> Pianos
             </button>
-            <button onclick="filtrarTag('Synth')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+            <button id="KONTAKT" onclick="filtrarTag('KONTAKT')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+                KONTAKT
+            </button>
+            <button id="categorias" onclick="filtrarTag('Brass')"
+                class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-800 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition group">
+
+                <div class="text-gray-100 group-hover:text-primary transition-colors">
+                    <svg viewBox="0 0 484.524 484.524" fill="currentColor" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M480.239,236.17l-160.3-227c-4.3-8.4-28.1-15.8-36,6.2l-60.7,206c0,0-32.9,22.2-35.3,23.7l-26.3-36.6
+                c-6.2-9.2-18.5-11.3-27.7-5.1s-11.3,18.5-5.1,27.7l26.1,37.1l-48.3,33.8l-26.1-37c-6.2-9.2-18.5-11.3-27.7-5.1
+                c-9.2,6.2-11.3,18.5-5.1,27.7l26.2,37.3c-2.1,1.4-65.3,45.9-65.3,45.9c-9.2,6.2-11.3,18.5-5.1,27.7c11.2,12.8,24.7,7.2,28.8,5.1
+                l13.4-9.4c1.7,9.9,5.5,19.4,11.2,27.9l22.6,31.8c11.9,18.9,54.8,45.8,97.6,17.5l113-79.1c17.6-10.5,46.9-49.5,17.5-97.6
+                c0,0-26.1-36.4-28.1-38.5l183.2,11.8C471.839,267.67,493.739,263.67,480.239,236.17z M268.539,358.47l-113,79.1
+                c-13.4,9.2-32.9,6.2-42.1-7.2l-22.6-31.8c-6.1-6.1-10.4-26.2,4.2-38.7l118.1-82.6c19.4-9.8,33.9,1.1,40.1,8.3l22.6,31.8
+                C280.939,323.57,287.239,345.97,268.539,358.47z M267.539,215.67l43.1-149l112,159.2L267.539,215.67z" />
+                    </svg>
+                </div>
+
+                Brass
+            </button>
+            <button id="categorias" onclick="filtrarTag('Synth')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="keyboard-music" class="w-5 h-5 group-hover:text-primary"></i> Synth
             </button>
-            <button onclick="filtrarTag('FX / Plugins')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+            <button id="categorias" onclick="filtrarTag('FX / Plugins')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="cable" class="w-5 h-5 group-hover:text-primary"></i> FX / Plugins
             </button>
         </div>
@@ -310,9 +363,9 @@ include 'conexion.php';
             actualizarIcono();
         }
     </script>
-            <script>
-            lucide.createIcons();
-        </script>
+    <script>
+        lucide.createIcons();
+    </script>
 
 </body>
 
