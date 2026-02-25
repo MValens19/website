@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $categoria = $conn->real_escape_string($_POST['categoria']);
     $descripcion = $conn->real_escape_string($_POST['descripcion']);
     $link_descarga = $conn->real_escape_string($_POST['link_descarga']);
-
+    $tamano = !empty($_POST['tamano']) ? $conn->real_escape_string($_POST['tamano']) : NULL;
     // Carpeta para los audios
     $directorio = "../uploads/";
     if (!is_dir($directorio)) {
@@ -47,9 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $audio_final = $conn->real_escape_string($_POST['audio_url']);
     }
 
-    // INSERTAR EN BASE DE DATOS
-    $sql = "INSERT INTO productos (titulo, categoria, descripcion, imagen_url, audio_url, link_descarga) 
-            VALUES ('$titulo', '$categoria', '$descripcion', '$imagen_final', '$audio_final', '$link_descarga')";
+    // --- 3. GUARDAR EN BASE DE DATOS ---
+
+    $sql = "INSERT INTO productos (titulo, categoria, descripcion, imagen_url, audio_url, tamano, link_descarga) 
+        VALUES ('$titulo', '$categoria', '$descripcion', '$imagen_final', '$audio_final', '$tamano', '$link_descarga')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: admin.php?exito=1");
@@ -103,80 +104,110 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <?php if ($mensaje) echo "<div class='bg-red-500/20 text-red-300 p-4 rounded-lg mb-6 border border-red-500'>$mensaje</div>"; ?>
 
-       <form method="POST" enctype="multipart/form-data" class="bg-cardbg p-6 md:p-8 rounded-xl border border-gray-700 shadow-2xl space-y-8">
+        <form method="POST" enctype="multipart/form-data" class="bg-cardbg p-6 md:p-8 rounded-xl border border-gray-700 shadow-2xl space-y-8">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-            <label class="block text-sm font-bold text-gray-300 mb-2">Título del Producto</label>
-            <input type="text" name="titulo" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition" placeholder="Titulo..." required>
-        </div>
-        <div>
-            <label class="block text-sm font-bold text-gray-300 mb-2">Categoría</label>
-            <select name="categoria" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition cursor-pointer">
-                <option value="Secuencias">Secuencias</option>
-                <option value="Drums">Drums</option>
-                <option value="Pianos">Pianos</option>
-                <option value="Synth">Synth / Presets</option>
-                <option value="Brass">Brass</option>
-                <option value="FX / Plugins">FX (Efectos) / Plugins</option>
-                <option value="Cursos">Cursos</option>
-            </select>
-        </div>
-    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Título del Producto</label>
+                    <input type="text" name="titulo" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition" placeholder="Titulo..." required>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Categoría</label>
+                    <select name="categoria" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition cursor-pointer">
+                        <option value="Secuencias">Secuencias</option>
+                        <option value="Drums">Drums</option>
+                        <option value="Pianos">Pianos</option>
+                        <option value="Synth">Synth / Presets</option>
+                        <option value="Brass">Brass</option>
+                        <option value="FX / Plugins">FX (Efectos) / Plugins</option>
+                        <option value="Cursos">Cursos</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Tamaño del Archivo</label>
+                    <div class="flex gap-2">
+                        <select id="unidad_tam" class="bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none text-sm">
+                            <option value="MB">MB</option>
+                            <option value="GB">GB</option>
+                        </select>
+                        <input type="number" id="num_tam" step="0.1" min="0" placeholder="0.0" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition">
+                        <input type="hidden" name="tamano" id="tamano_final">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-gray-300 mb-2">Descripción</label>
+                <textarea name="descripcion" rows="3" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition" placeholder="Describe brevemente el contenido..."></textarea>
+            </div>
 
-    <div>
-        <label class="block text-sm font-bold text-gray-300 mb-2">Descripción</label>
-        <textarea name="descripcion" rows="3" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none transition" placeholder="Describe brevemente el contenido..."></textarea>
-    </div>
+            <hr class="border-gray-700">
 
-    <hr class="border-gray-700">
+            <div>
+                <label class="block text-sm font-bold text-primary mb-2 flex items-center gap-2">
+                    <i data-lucide="image" class="w-5 h-5"></i>
+                    Imagen de Portada
+                </label>
+                <input type="url" name="imagen_url" placeholder="Pega aquí el link de la imagen (Ej: https://imgur.com/...)" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none mb-2">
 
-    <div>
-        <label class="block text-sm font-bold text-primary mb-2 flex items-center gap-2">
-            <i data-lucide="image" class="w-5 h-5"></i>
-            Imagen de Portada
-        </label>
-        <input type="url" name="imagen_url" placeholder="Pega aquí el link de la imagen (Ej: https://imgur.com/...)" class="w-full bg-darkbg border border-gray-600 rounded-lg p-3 focus:border-primary outline-none mb-2">
+                <details class="text-xs text-gray-500">
+                    <summary class="cursor-pointer hover:text-gray-300">¿Prefieres subir un archivo?</summary>
+                    <input type="file" name="imagen_archivo" accept="image/*" class="mt-2 block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-600">
+                </details>
+            </div>
 
-        <details class="text-xs text-gray-500">
-            <summary class="cursor-pointer hover:text-gray-300">¿Prefieres subir un archivo?</summary>
-            <input type="file" name="imagen_archivo" accept="image/*" class="mt-2 block w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-600">
-        </details>
-    </div>
+            <div class="bg-darkbg/50 p-4 rounded-lg border border-dashed border-gray-600">
+                <label class="block text-sm font-bold text-primary mb-2 flex items-center gap-2">
+                    <i data-lucide="music" class="w-5 h-5"></i>
+                    Audio Demo (Preview)
+                </label>
+                <p class="text-xs text-gray-400 mb-3">Sube un MP3 corto (Recomendado: menos de 2MB) a la carpeta <b>/uploads</b>.</p>
 
-    <div class="bg-darkbg/50 p-4 rounded-lg border border-dashed border-gray-600">
-        <label class="block text-sm font-bold text-primary mb-2 flex items-center gap-2">
-            <i data-lucide="music" class="w-5 h-5"></i>
-            Audio Demo (Preview)
-        </label>
-        <p class="text-xs text-gray-400 mb-3">Sube un MP3 corto (Recomendado: menos de 2MB) a la carpeta <b>/uploads</b>.</p>
+                <input type="file" name="audio_archivo" accept="audio/*" class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-primary file:text-white file:font-bold hover:file:bg-violet-600 cursor-pointer">
 
-        <input type="file" name="audio_archivo" accept="audio/*" class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-primary file:text-white file:font-bold hover:file:bg-violet-600 cursor-pointer">
+                <div class="mt-4 pt-2 border-t border-gray-700">
+                    <input type="url" name="audio_url" placeholder="O pega un link de audio externo..." class="w-full bg-transparent border border-gray-600 rounded p-2 text-xs focus:border-gray-400 outline-none">
+                </div>
+            </div>
 
-        <div class="mt-4 pt-2 border-t border-gray-700">
-            <input type="url" name="audio_url" placeholder="O pega un link de audio externo..." class="w-full bg-transparent border border-gray-600 rounded p-2 text-xs focus:border-gray-400 outline-none">
-        </div>
-    </div>
+            <hr class="border-gray-700">
 
-    <hr class="border-gray-700">
+            <div>
+                <label class="block text-sm font-bold text-green-400 mb-2 flex items-center gap-2">
+                    <i data-lucide="link" class="w-5 h-5"></i>
+                    Link de Descarga (El producto real)
+                </label>
+                <input type="url" name="link_descarga" class="w-full bg-darkbg border border-green-900/50 text-green-100 rounded-lg p-3 focus:border-green-500 outline-none transition" placeholder="https://drive.google.com/file/d/..." required>
+            </div>
 
-    <div>
-        <label class="block text-sm font-bold text-green-400 mb-2 flex items-center gap-2">
-            <i data-lucide="link" class="w-5 h-5"></i>
-            Link de Descarga (El producto real)
-        </label>
-        <input type="url" name="link_descarga" class="w-full bg-darkbg border border-green-900/50 text-green-100 rounded-lg p-3 focus:border-green-500 outline-none transition" placeholder="https://drive.google.com/file/d/..." required>
-    </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-primary text-white font-bold py-4 rounded-xl shadow-lg transform hover:scale-[1.01] transition duration-300 flex justify-center items-center gap-2">
+                <i data-lucide="send" class="w-6 h-6"></i>
+                Publicar Producto
+            </button>
 
-    <button type="submit" class="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-primary text-white font-bold py-4 rounded-xl shadow-lg transform hover:scale-[1.01] transition duration-300 flex justify-center items-center gap-2">
-        <i data-lucide="send" class="w-6 h-6"></i>
-        Publicar Producto
-    </button>
+            <script>     
+                lucide.createIcons();
+            </script>
 
-    <script>
-        lucide.createIcons();
-    </script>
-</form>
+            <script>
+                const numInput = document.getElementById('num_tam');
+                const unitSelect = document.getElementById('unidad_tam');
+                const finalInput = document.getElementById('tamano_final');
+
+                function actualizarTamano() {
+                    if (numInput.value && numInput.value > 0) {
+                        finalInput.value = numInput.value + ' ' + unitSelect.value;
+                    } else {
+                        finalInput.value = ''; // Se envía vacío si no hay número
+                    }
+                }
+
+                numInput.addEventListener('input', actualizarTamano);
+                unitSelect.addEventListener('change', actualizarTamano);
+
+                // Inicializar iconos
+                lucide.createIcons();
+            </script>
+        </form>
 
         <div class="h-20"></div>
     </main>

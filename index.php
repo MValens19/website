@@ -199,10 +199,17 @@ include 'conexion.php';
                         </div>
 
                         <div class="p-4 flex flex-col flex-grow">
-                            <div class="flex justify-between items-start mb-2">
+                            <div class="flex justify-between items-center mb-2">
                                 <p class="text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/30 px-2 py-0.5 rounded tag-categoria">
                                     <?php echo $row['categoria']; ?>
                                 </p>
+
+                                <?php if (!empty($row['tamano'])): ?>
+                                    <span class="flex items-center gap-1 text-[10px] text-gray-500 font-medium">
+                                        <i data-lucide="database" class="w-3 h-3"></i>
+                                        <?php echo $row['tamano']; ?>
+                                    </span>
+                                <?php endif; ?>
                             </div>
 
                             <a href="detalles.php?id=<?php echo $row['id']; ?>" class="block group/link">
