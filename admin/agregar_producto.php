@@ -120,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Synth">Synth / Presets</option>
                         <option value="Brass">Brass</option>
                         <option value="FX / Plugins">FX (Efectos) / Plugins</option>
+                        <option value="Software">Software</option>
                         <option value="Cursos">Cursos</option>
                     </select>
                 </div>

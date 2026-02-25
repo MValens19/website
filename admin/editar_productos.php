@@ -146,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <option value="Drums" <?php if ($p['categoria'] == 'Drums') echo 'selected'; ?>>Drums</option>
                                 <option value="Pianos" <?php if ($p['categoria'] == 'Pianos') echo 'selected'; ?>>Pianos</option>
                                 <option value="Synth" <?php if ($p['categoria'] == 'Synth') echo 'selected'; ?>>Synth / Presets</option>
+                                <option value="Software" <?php if ($p['categoria'] == 'Software') echo 'selected'; ?>>Software</option>
                             </select>
                         </div>
                         <div>
@@ -172,6 +173,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </label>
                     <input type="url" name="link_descarga" value="<?php echo $p['link_descarga']; ?>" class="w-full bg-darkbg border border-green-900/30 text-green-100 rounded-xl p-4 focus:border-green-500 outline-none transition" required>
                 </div>
+                
+    <div class="pt-6 border-t border-gray-700 flex flex-col md:flex-row gap-4">
+        <button type="submit" class="flex-1 bg-primary hover:bg-violet-600 text-white font-extrabold py-5 rounded-2xl shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.01] active:scale-[0.98] flex justify-center items-center gap-3 text-lg">
+            <i data-lucide="save" class="w-6 h-6"></i> Actualizar Producto
+        </button>
+        <a href="admin.php" class="md:w-1/4 bg-gray-800 hover:bg-red-500/20 hover:text-red-400 text-gray-400 font-bold py-5 rounded-2xl transition-all text-center">
+            Descartar
+        </a>
+    </div>
             </div>
 
             <div class="space-y-6">
@@ -236,14 +246,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
     </div>
 
-    <div class="pt-6 border-t border-gray-700 flex flex-col md:flex-row gap-4">
-        <button type="submit" class="flex-1 bg-primary hover:bg-violet-600 text-white font-extrabold py-5 rounded-2xl shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.01] active:scale-[0.98] flex justify-center items-center gap-3 text-lg">
-            <i data-lucide="save" class="w-6 h-6"></i> Actualizar Producto
-        </button>
-        <a href="admin.php" class="md:w-1/4 bg-gray-800 hover:bg-red-500/20 hover:text-red-400 text-gray-400 font-bold py-5 rounded-2xl transition-all text-center">
-            Descartar
-        </a>
-    </div>
     </form>
     </div>
 
