@@ -159,7 +159,10 @@ include 'conexion.php';
             <button id="categorias" onclick="filtrarTag('FX / Plugins')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="cable" class="w-5 h-5 group-hover:text-primary"></i> FX / Plugins
             </button>
-        </div>
+            <button id="categorias" onclick ="filtrarTag('Software')"  class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+                <i data-lucide="cpu" class="w-5 h-5 group-hover:text-primary"></i> Software
+            </button>      
+            </div>
 
     </header>
 
