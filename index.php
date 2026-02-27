@@ -159,7 +159,10 @@ include 'conexion.php';
             <button id="categorias" onclick="filtrarTag('FX / Plugins')" class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
                 <i data-lucide="cable" class="w-5 h-5 group-hover:text-primary"></i> FX / Plugins
             </button>
-        </div>
+            <button id="categorias" onclick ="filtrarTag('Software')"  class="flex items-center gap-2 px-5 py-2 rounded-full border border-gray-600 bg-black/40 backdrop-blur hover:border-primary hover:text-primary transition font-medium group">
+                <i data-lucide="cpu" class="w-5 h-5 group-hover:text-primary"></i> Software
+            </button>      
+            </div>
 
     </header>
 
@@ -199,10 +202,17 @@ include 'conexion.php';
                         </div>
 
                         <div class="p-4 flex flex-col flex-grow">
-                            <div class="flex justify-between items-start mb-2">
+                            <div class="flex justify-between items-center mb-2">
                                 <p class="text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/30 px-2 py-0.5 rounded tag-categoria">
                                     <?php echo $row['categoria']; ?>
                                 </p>
+
+                                <?php if (!empty($row['tamano'])): ?>
+                                    <span class="flex items-center gap-1 text-[10px] text-gray-500 font-medium">
+                                        <i data-lucide="database" class="w-3 h-3"></i>
+                                        <?php echo $row['tamano']; ?>
+                                    </span>
+                                <?php endif; ?>
                             </div>
 
                             <a href="detalles.php?id=<?php echo $row['id']; ?>" class="block group/link">
