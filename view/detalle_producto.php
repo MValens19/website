@@ -37,6 +37,8 @@ if (isset($_GET['id'])) {
             }
         }
     </script>
+        <link rel="icon" type="image/png" href="../img/logo.png">
+
     <style>
         .studio-bg {
             background: linear-gradient(rgba(5, 10, 21, 0.85), rgba(5, 10, 21, 0.95)),

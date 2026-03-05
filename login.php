@@ -25,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script>
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#8b5cf6', darkbg: '#0f172a', cardbg: '#1e293b' } } } }
     </script>
+    <link rel="icon" type="image/png" href="img/logo.png">
+
 </head>
 <body class="bg-darkbg text-white h-screen flex items-center justify-center">
     <div class="bg-cardbg p-8 rounded-xl shadow-2xl w-full max-w-md border border-gray-700">

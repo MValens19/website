@@ -42,6 +42,8 @@ $resultado = $conn->query($sql);
             }
         }
     </script>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+
 </head>
 
 <body class="bg-darkbg text-white min-h-screen">

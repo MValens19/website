@@ -94,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     </script>
+        <link rel="icon" type="image/png" href="../img/logo.png">
+
 </head>
 
 <body class="bg-darkbg text-white min-h-screen p-4 md:p-8">
@@ -147,6 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <option value="Pianos" <?php if ($p['categoria'] == 'Pianos') echo 'selected'; ?>>Pianos</option>
                                 <option value="Synth" <?php if ($p['categoria'] == 'Synth') echo 'selected'; ?>>Synth / Presets</option>
                                 <option value="Software" <?php if ($p['categoria'] == 'Software') echo 'selected'; ?>>Software</option>
+                                <option value="FX / Plugins" <?php if ($p['categoria'] == 'FX / Plugins') echo 'selected'; ?>>FX / Plugins</option>
+                                <option value="Brass" <?php if ($p['categoria'] == 'Brass') echo 'selected'; ?>>Brass</option>
+                                <option value="Cursos" <?php if ($p['categoria'] == 'Cursos') echo 'selected'; ?>>Cursos</option>
                             </select>
                         </div>
                         <div>
